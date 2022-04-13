@@ -257,6 +257,8 @@ module BaseHelper
           title = @user.login
           title += ' - ' + app_base + tagline
           @canonical_url = user_url(@user)
+        elsif @recover_password
+          title = t(:recover_password) + ' - ' + app_base + tagline
         else
           title = t(:showing_users) + ' - ' + app_base + tagline
         end
