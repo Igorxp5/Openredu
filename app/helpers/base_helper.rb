@@ -205,11 +205,11 @@ module BaseHelper
                               :model => options[:object_name].to_s.gsub('_', ' ')
                          end
 
-        message = options.include?(:message) ? options[:message] : locale.t(:body)
+        message = options.include?(:message) ? options[:message] : locale.t(:body, :count => count)
 
         error_messages = objects.sum do |object|
           object.errors.collect do |attr, error|
-            object.class.human_attribute_name(attr, :default => attr)
+            object.class.human_attribute_name(attr, :default => attr) + ": " + error
           end
         end.uniq.join(", ").html_safe
 
