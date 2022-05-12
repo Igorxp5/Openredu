@@ -9,6 +9,7 @@ class UsersController < BaseController
     :find_by => :login
 
   rescue_from CanCan::AccessDenied, :with => :deny_access
+  rescue_from ActiveRecord::RecordNotFound, :with => :not_found
 
   before_filter :remove_errors_field, only: :create
 
@@ -431,6 +432,10 @@ class UsersController < BaseController
 
   def new
     redirect_to application_path(:anchor => "modal-sign-up")
+  end
+
+  def not_found
+    render 'users/not_found', :layout => 'new_application'
   end
 
   protected
